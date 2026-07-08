@@ -1,0 +1,41 @@
+---
+import Shell from '../../components/Shell.astro';
+import LlmsTxtGenerator from '../../components/tools/LlmsTxtGenerator';
+---
+
+<Shell
+  title="llms.txt Generator — RankAI"
+  description="Generate an llms.txt file from your sitemap. RankAI reads your site and produces a clean, editable Markdown index of your most important pages for AI systems."
+  canonical="https://rankai.app/tools/llms-txt-generator/"
+>
+  <section data-hero-bleed class="relative overflow-hidden" style="background: linear-gradient(180deg, #eff6ff 0%, #ecfeff 55%, #f0fdfa 100%);">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0"
+      style="background-image: radial-gradient(circle at 78% 10%, rgba(56,189,248,0.20), transparent 42%), radial-gradient(circle at 10% 90%, rgba(13,148,136,0.10), transparent 42%);"
+    />
+    <div class="relative max-w-3xl mx-auto px-6 py-20 md:py-24 text-center">
+      <p
+        class="mb-5 inline-flex rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]"
+        style="color:#0369a1; background:rgba(255,255,255,0.65); border:1px solid rgba(56,189,248,0.35); backdrop-filter:blur(6px);"
+      >
+        llms.txt Generator
+      </p>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight" style="color:#0f172a;">
+        Turn your sitemap into an
+        <span style="background: linear-gradient(90deg, #0D9488, #06B6D4, #38BDF8); -webkit-background-clip:text; background-clip:text; color:transparent;"> llms.txt</span>
+      </h1>
+      <p class="mt-6 text-lg md:text-xl leading-relaxed" style="color:#475569;">
+        RankAI reads your sitemap and generates a clean, editable Markdown index of your most
+        important pages — so AI systems can orient themselves around your site. Generate it, edit it,
+        and publish it at your domain root.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 md:py-10">
+    <div class="rounded-xl border border-border bg-bg-surface p-5 md:p-6">
+      <LlmsTxtGenerator client:load />
+    </div>
+  </div>
+</Shell>

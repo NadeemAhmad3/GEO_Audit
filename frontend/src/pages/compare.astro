@@ -1,0 +1,38 @@
+---
+import Shell from '../components/Shell.astro';
+import CompareContainer from '../components/compare/CompareContainer';
+---
+
+<Shell
+  title="Compare AI Search Visibility — RankAI"
+  description="Run a free head-to-head GEO audit. Enter two URLs and compare AI search visibility side by side."
+  canonical="https://geoready.dev/compare/"
+>
+  <section data-hero-bleed class="relative overflow-hidden" style="background: linear-gradient(180deg, #eff6ff 0%, #ecfeff 55%, #f0fdfa 100%);">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0"
+      style="background-image: radial-gradient(circle at 78% 10%, rgba(56,189,248,0.20), transparent 42%), radial-gradient(circle at 10% 90%, rgba(13,148,136,0.10), transparent 42%);"
+    />
+    <div class="relative max-w-3xl mx-auto px-6 py-20 md:py-24 text-center">
+      <p
+        class="mb-5 inline-flex rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]"
+        style="color:#0369a1; background:rgba(255,255,255,0.65); border:1px solid rgba(56,189,248,0.35); backdrop-filter:blur(6px);"
+      >
+        Head-to-head comparison
+      </p>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight" style="color:#0f172a;">
+        Compare two sites,
+        <span style="background: linear-gradient(90deg, #0D9488, #06B6D4, #38BDF8); -webkit-background-clip:text; background-clip:text; color:transparent;"> side by side</span>
+      </h1>
+      <p class="mt-6 text-lg md:text-xl leading-relaxed" style="color:#475569;">
+        Enter two URLs and run a free head-to-head GEO audit. See which site is more visible to
+        AI answer engines — scored across the same 8 signal categories.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-10">
+    <CompareContainer client:only="react" />
+  </div>
+</Shell>

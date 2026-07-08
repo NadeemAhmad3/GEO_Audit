@@ -1,0 +1,166 @@
+# GeoReady
+
+> AI visibility audit and monitoring platform built on the open-source GEO Optimizer engine. Score 0-100 based on 8 scoring categories derived from peer-reviewed research (Princeton KDD 2024, AutoGEO ICLR 2026).
+
+GeoReady helps developers, SEOs, and content teams measure and improve how discoverable, readable, and citable their websites are to AI answer engines such as ChatGPT, Perplexity, Claude, and Gemini.
+
+Built in Italy by Auriti Labs. Designed for the global AI search ecosystem.
+
+## What is Generative Engine Optimization (GEO)?
+
+Generative Engine Optimization (GEO) is the practice of structuring and presenting web content so that AI language models can reliably retrieve, understand, and cite it when generating answers. Unlike traditional SEO — which targets keyword rankings in blue-link search engines — GEO targets citation signals: structured data, content hierarchy, machine-readable discovery files, and brand entity disambiguation.
+
+The GEO Optimizer engine translates the academic research on GEO into GeoReady's practical audit tool with a 0-100 score and per-category breakdowns.
+
+## Scoring categories (max 100 points)
+
+1. **robots.txt** (max 18 pts): presence and correct configuration for 27 AI crawlers including GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider, meta-externalagent, xAI-Bot, and others. A misconfigured robots.txt can silently block AI crawlers from indexing your content.
+
+2. **llms.txt** (max 18 pts): presence and quality of the llms.txt standard. This file gives AI systems a structured, human-readable summary of your site. The GEO Optimizer engine checks for headings, description, sections, links, word depth, and companion files.
+
+3. **Schema JSON-LD** (max 16 pts): structured data markup per Schema.org. Checks for Organization, WebSite, WebApplication, FAQPage, and Article types. Validates required fields and measures attribute richness. Rich schemas with 5+ attributes correlate with higher AI citation rates.
+
+4. **Meta Tags** (max 14 pts): title, meta description, canonical URL, and Open Graph tags. These provide the AI with unambiguous, authoritative source metadata.
+
+5. **Content Quality** (max 12 pts): heading hierarchy, use of concrete numbers, presence of lists and tables, word count, and front-loaded answer structure. AI systems prefer content that delivers the answer immediately before the context.
+
+6. **Technical Signals** (max 6 pts): HTML lang attribute, RSS/Atom feed, and freshness indicators (dateModified in schema or article:modified_time meta tag). Freshness signals help AI engines prefer recently updated content.
+
+7. **AI Discovery** (max 6 pts): presence of /.well-known/ai.txt, /ai/summary.json, /ai/faq.json, and /ai/service.json. These machine-readable endpoints let AI agents understand your site's purpose and capabilities without crawling all pages.
+
+8. **Brand & Entity Signals** (max 10 pts): brand name consistency across title, H1, og:title, and Organization schema; Knowledge Graph readiness (sameAs links to Wikipedia, Wikidata, LinkedIn, Crunchbase); visible /about link; Organization contactPoint; geographic identity; and topic authority via FAQ depth.
+
+## Additional diagnostic checks (no score impact)
+
+- **Prompt Injection Detection**: detects 8 categories of manipulation patterns including hidden text, invisible Unicode, ARIA-hidden injections, and LLM instruction injections.
+- **Citability Analysis**: 47 research-backed methods measuring quotation density, statistics, fluency, authoritative tone, answer-first structure, and more. Total citability score 0-100.
+- **Trust Stack Score**: composite across technical trust (HTTPS, CSP, HSTS), identity trust, social trust, academic trust, and consistency trust.
+- **Negative Signals**: excessive CTAs, thin content, broken links, keyword stuffing, popup indicators.
+- **CDN Crawler Access**: detects whether Cloudflare, Akamai, or Vercel is blocking AI crawlers.
+- **JS Rendering Check**: flags content that requires JavaScript to be visible to crawlers.
+- **WebMCP Readiness**: evaluates the site's machine-readable interface for MCP-compatible AI agents.
+- **RAG Chunk Readiness**: measures how well the page content can be chunked for retrieval-augmented generation.
+- **Content Decay Detection**: identifies stale version numbers, expired year references, and temporal inconsistencies.
+- **Platform Citation Score**: per-platform readiness for ChatGPT, Perplexity, and Google AI Overviews.
+
+## Score bands
+
+- 86–100: Excellent — well-optimized for AI search
+- 68–85: Good — strong foundation, minor gaps
+- 36–67: Foundation — significant improvements possible
+- 0–35: Critical — major barriers to AI visibility
+
+## CLI commands
+
+Install: `pip install geo-optimizer-skill`
+
+- `geo audit --url <URL>`: full GEO audit with 8-category score and recommendations
+- `geo audit --url <URL> --format json`: machine-readable JSON output for CI/CD pipelines
+- `geo audit --url <URL> --format html`: standalone HTML report
+- `geo fix --url <URL>`: generate fix files (robots.txt, llms.txt, JSON-LD schema)
+- `geo llms --url <URL>`: check llms.txt readiness and generate a template
+- `geo schema --url <URL>`: validate JSON-LD schema markup
+
+## MCP server integration
+
+The GEO Optimizer engine is available as an MCP (Model Context Protocol) server. AI coding assistants that support MCP can use it to run audits, compare URLs, check AI bot access, validate schema, and more — directly within the coding session.
+
+Available MCP tools: `geo_audit`, `geo_compare`, `geo_fix`, `geo_llms_generate`, `geo_check_bots`, `geo_schema_validate`, `geo_citability`, `geo_trust_score`, `geo_gap_analysis`, `geo_ai_discovery`, `geo_negative_signals`, `geo_factual_accuracy`.
+
+## Trust signals
+
+- License: MIT
+- Source code: https://github.com/Auriti-Labs/geo-optimizer-skill
+- All scoring weights are public and documented in `src/geo_optimizer/models/config.py`
+- No external API required for core audit functionality
+- Zero data collection from audited URLs beyond the public HTTP fetch
+- Test suite: 1,400+ unit tests, all mocked (no real network calls in tests)
+
+## Known limitations
+
+- JavaScript-heavy SPAs may receive lower scores if content requires client-side rendering
+- The free web tool processes one URL at a time; batch processing is available via CLI
+- Brand sentiment and embedding proximity features require optional dependencies
+- Scoring reflects the state of the page at audit time; dynamic content may vary
+
+## Update policy
+
+The GEO Optimizer engine is actively maintained. Scoring weights and audit methods are updated as new research is published. Version history and changelogs are available at https://github.com/Auriti-Labs/geo-optimizer-skill/releases.
+
+## Main sections
+
+- [Audit](https://geoready.dev/): Run a GEO audit on any URL — free, no account required.
+- [AI SEO Guide](https://geoready.dev/ai-seo/): What AI SEO is, how it differs from traditional SEO, and how to audit a site for visibility in ChatGPT, Perplexity, Claude, and Gemini.
+- [Compare](https://geoready.dev/compare/): Side-by-side comparison of two URLs.
+- [Analyze Competitors](https://geoready.dev/analyze-competitors/): Multi-URL competitor analysis.
+- [Research](https://geoready.dev/research/): Peer-reviewed research foundation.
+- [Methodology](https://geoready.dev/methodology/): Transparent scoring weights, score bands, signal categories, and research-backed assumptions behind the GEO score.
+- [State of GEO](https://geoready.dev/state-of-geo/): Live AI search readiness benchmark across sites audited by GeoReady — average and median GEO score, llms.txt and schema adoption, and the biggest readiness gap. Aggregated and anonymized; an audited sample, not a survey of the whole web.
+- [Best GEO Tools](https://geoready.dev/best-geo-tools/): Criteria-based guide to evaluating generative engine optimization software, including methodology transparency, audit vs monitoring, CI/CD support, and answer-engine citation checks.
+- [Roadmap](https://geoready.dev/roadmap/): Planned and in-progress features.
+- [Manifesto](https://geoready.dev/manifesto/): Why the open-source GEO Optimizer engine exists and what it stands for.
+- [Pricing](https://geoready.dev/pricing/): Free and Pro plan comparison.
+- [Privacy Policy](https://geoready.dev/privacy/): GDPR-compliant privacy policy.
+
+## Tools
+
+- [Free AI Citation Checker](https://geoready.dev/tools/ai-citation-checker/): Check whether a brand is mentioned or cited by AI answer engines, with outcome labels for cited, mentioned, competitor-cited, or invisible.
+- [Free llms.txt Generator](https://geoready.dev/tools/llms-txt-generator/): Generate a starter llms.txt from your sitemap — categorized, editable Markdown you can download and publish at your domain root. Free, no account required.
+
+## Guides
+
+- [Generative Engine Optimization: a practical guide to GEO](https://geoready.dev/guides/generative-engine-optimization/): The pillar guide to GEO as a technical discipline — core signals, technical and content checklists, how to measure readiness.
+- [What is llms.txt?](https://geoready.dev/guides/what-is-llms-txt/): What llms.txt is, how it differs from robots.txt, what to include, and a concrete example.
+- [GEO vs SEO](https://geoready.dev/guides/geo-vs-seo/): What stays the same and what changes when AI answer engines become the interface.
+- [How to appear in ChatGPT and Perplexity sources](https://geoready.dev/guides/appear-in-chatgpt-perplexity/): A practical checklist for becoming citable by AI answer engines.
+- [How to improve AI visibility](https://geoready.dev/guides/how-to-improve-ai-visibility/): Step-by-step playbook for improving crawlability, structured data, entity clarity, quotable content, and measurement after an audit.
+- [llms.txt for WordPress](https://geoready.dev/guides/llms-txt-wordpress/): Practical implementation guide for WordPress sites.
+- [AI Visibility Checklist](https://geoready.dev/guides/ai-visibility-checklist/): All technical and content signals organized by category.
+- [How to check AI citations](https://geoready.dev/guides/ai-citations-check/): Measurement guide for checking whether AI engines mention and cite a brand.
+- [Entity Authority](https://geoready.dev/guides/entity-authority/): How consistent entity signals, topical clusters, and public references help AI systems disambiguate a brand.
+- [Multimodal GEO](https://geoready.dev/guides/multimodal-geo/): Image, chart, screenshot, and media optimization patterns for AI visibility.
+
+## Research sources
+
+- GEO: Generative Engine Optimization — KDD 2024 (https://arxiv.org/abs/2311.09701)
+- AutoGEO: Automatic Generative Engine Optimization — ICLR 2026 (https://openreview.net/forum?id=K8EinVWtUB)
+- AI Citations Report 2026 — industry analysis
+- C-SEO Bench — internal benchmark for conversational SEO evaluation
+- Schema Markup & AI Citations — product analysis on JSON-LD citation correlation
+- AI Mode Citation Factors — product analysis on on-page ranking signals
+
+## Companion files
+
+- [Full LLM context](https://geoready.dev/llms-full.txt): Extended machine-readable context with detailed scoring methodology, research citations, and API reference.
+- [AI site summary](https://geoready.dev/ai/summary.json): Structured JSON summary for AI agents.
+- [AI capabilities](https://geoready.dev/ai/service.json): Machine-readable service description.
+- [AI FAQ](https://geoready.dev/ai/faq.json): Structured FAQ for AI question answering.
+
+## GeoReady Platform
+
+GeoReady (app.geoready.dev) is the commercial monitoring platform built on GEO Optimizer. While GEO Optimizer is the open-source audit engine (MIT license, available on PyPI), GeoReady adds continuous monitoring, score history, regression alerts, and team collaboration workflows.
+
+### Brand Architecture
+
+- **GeoReady** — public website, free web audit, and commercial SaaS platform with paid plans at app.geoready.dev
+- **GEO Optimizer** — open-source Python toolkit and scoring engine behind the GeoReady audit
+- **Auriti Labs** — the organization that maintains both products
+
+### GeoReady Plans
+
+- **Free** — unlimited single audits, 0-100 GEO score, 8-category breakdown, actionable recommendations
+- **Pro** — continuous monitoring, weekly audits, score history, regression alerts, PDF export
+- **Studio** — team workspaces, multi-site monitoring, white-label reports
+- **Agency** — client management, bulk audits, priority support
+
+GeoReady is built on the same scoring engine as GEO Optimizer. Every audit on geoready.dev uses the same 8-category scoring methodology, the same 47 citability methods, and the same research foundation.
+
+### Access
+
+Free audits at geoready.dev require no account. The GeoReady Pro platform at app.geoready.dev requires signup.
+
+## Contact
+
+- Technical issues and bug reports: https://github.com/Auriti-Labs/geo-optimizer-skill/issues
+- Author: Auriti Labs (https://github.com/Auriti-Labs)
+- Repository: https://github.com/Auriti-Labs/geo-optimizer-skill

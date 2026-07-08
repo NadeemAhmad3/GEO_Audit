@@ -1,0 +1,30 @@
+---
+import Shell from '../../components/Shell.astro';
+import AuditReportContainer from '../../components/report/AuditReportContainer';
+
+const url = Astro.url.searchParams.get('url') || '';
+const title = url ? `RankAI Audit Report — ${url}` : 'RankAI Audit Report';
+const description = 'View your RankAI audit report with GEO scores, citability ratings, technical signals, and actionable AI search visibility recommendations.';
+const canonical = 'https://geoready.dev/report/audit/';
+const robots = 'noindex, nofollow';
+---
+
+<Shell title={title} description={description} canonical={canonical} robots={robots}>
+  <header class="max-w-7xl mx-auto px-4 sm:px-6 pt-10 md:pt-16 pb-6">
+    <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider" style="color:#0284c7;">
+      <span style="background: linear-gradient(90deg,#0D9488,#06B6D4,#38BDF8); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:700;">RankAI</span>
+      <span class="w-1 h-1 rounded-full bg-text-muted"></span>
+      <span>Audit Report</span>
+    </div>
+
+    <h1 class="mt-3 font-display text-3xl md:text-4xl font-bold text-text-primary leading-tight tracking-tight">
+      GEO Audit Report
+    </h1>
+
+    <p class="mt-4 text-base text-text-secondary leading-relaxed max-w-2xl">
+      Live audit results for the submitted URL. Generated on demand — not indexed by search engines.
+    </p>
+  </header>
+
+  <AuditReportContainer client:only="react" reportId={url} />
+</Shell>

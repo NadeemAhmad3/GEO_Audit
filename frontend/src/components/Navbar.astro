@@ -1,0 +1,327 @@
+---
+// Primary links — always visible on desktop (no "More" dropdown)
+const primaryLinks = [
+  { label: "Audit", href: "/" },
+  { label: "Compare", href: "/compare/" },
+  { label: "Analyze", href: "/analyze-competitors/" },
+  { label: "AI Citation Checker", href: "/tools/ai-citation-checker/" },
+  { label: "llms.txt Generator", href: "/tools/llms-txt-generator/" },
+];
+---
+
+<nav id="floating-nav" data-theme="light" class="fixed inset-x-0 top-0 z-50">
+  <!-- Top gradient accent line -->
+  <div class="nav-accent-line" aria-hidden="true"></div>
+
+  <div id="nav-bar" class="nav-bar h-16 flex items-center transition-all duration-300">
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 flex items-center justify-between gap-3">
+
+    <!-- Brand: stylish R lettermark + RankAI -->
+    <a href="/" class="brand flex items-center gap-2.5 shrink-0 group">
+      <span class="brand-mark font-display" aria-hidden="true">R</span>
+      <span class="brand-name font-display font-extrabold text-[19px] tracking-tight">
+        Rank<span class="brand-ai">AI</span>
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-1">
+      {primaryLinks.map((l) => (
+        <a
+          href={l.href}
+          data-nav-link
+          class="nav-link relative px-3.5 py-2 rounded-lg text-[13.5px] font-semibold transition-colors"
+        >
+          <span class="relative z-10">{l.label}</span>
+        </a>
+      ))}
+    </div>
+
+    <!-- Mobile burger -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-text-primary hover:bg-bg-subtle transition-colors"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="sr-only">Menu</span>
+      <svg id="burger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="transition-transform duration-300">
+        <path id="burger-arc" d="M5 8 A 7 7 0 0 1 19 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" class="transition-all duration-300"/>
+        <path id="burger-wave" d="M4 13 C 7 10 9 16 12 13 C 15 10 17 16 20 13" stroke="#0D9488" stroke-width="2" stroke-linecap="round" fill="none" class="transition-all duration-300"/>
+        <line id="burger-base" x1="6" y1="18" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="transition-all duration-300"/>
+      </svg>
+    </button>
+
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile fullscreen overlay -->
+<div
+  id="mobile-menu"
+  class="md:hidden hidden fixed inset-x-0 top-[72px] bottom-0 z-[60] bg-bg-base overflow-y-auto overscroll-contain"
+  role="navigation"
+  aria-label="Mobile navigation"
+  aria-hidden="true"
+>
+    <div class="px-5 pt-6 pb-10">
+
+      <!-- Brand echo -->
+      <a href="/" data-mobile-link class="flex items-center gap-2.5 mb-7">
+        <span class="brand-mark font-display" aria-hidden="true">R</span>
+        <span class="brand-name font-display font-extrabold text-lg tracking-tight">
+          Rank<span class="brand-ai">AI</span>
+        </span>
+      </a>
+
+      <p class="text-[10px] font-mono uppercase tracking-[0.15em] text-text-muted mb-1.5 px-1">Tools</p>
+      <div class="flex flex-col mb-2">
+        {primaryLinks.map((l) => (
+          <a
+            href={l.href}
+            data-mobile-link
+            class="flex items-center justify-between py-3 px-1 text-[15px] font-medium text-text-primary border-b border-border last:border-0 hover:text-accent-teal transition-colors"
+          >
+            <span>{l.label}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+
+      <div class="flex flex-col gap-2.5 mt-7 pt-5 border-t border-border">
+        <a
+          href="https://app.geoready.dev/login"
+          data-mobile-link
+          class="w-full text-center py-3 rounded-lg border border-border text-text-primary font-semibold text-sm hover:bg-bg-subtle transition-colors"
+        >
+          Log in
+        </a>
+      </div>
+    </div>
+</div>
+
+<script>
+  // ─── Mobile fullscreen menu ─────────────────────────────────────────────────
+  const burgerBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const burgerIcon = document.getElementById('burger-icon');
+
+  function setBurgerOpen(open: boolean) {
+    const arc = document.getElementById('burger-arc') as SVGPathElement | null;
+    const wave = document.getElementById('burger-wave') as SVGPathElement | null;
+    const base = document.getElementById('burger-base') as SVGLineElement | null;
+    if (!arc || !wave || !base) return;
+    if (open) {
+      arc.setAttribute('d', 'M6 6 L 18 18');
+      wave.style.opacity = '0';
+      base.setAttribute('x1', '18');
+      base.setAttribute('y1', '6');
+      base.setAttribute('x2', '6');
+      base.setAttribute('y2', '18');
+    } else {
+      arc.setAttribute('d', 'M5 8 A 7 7 0 0 1 19 8');
+      wave.style.opacity = '';
+      base.setAttribute('x1', '6');
+      base.setAttribute('y1', '18');
+      base.setAttribute('x2', '18');
+      base.setAttribute('y2', '18');
+    }
+  }
+
+  function openMobile() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('hidden');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    burgerBtn?.setAttribute('aria-expanded', 'true');
+    setBurgerOpen(true);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobile() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('hidden');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    burgerBtn?.setAttribute('aria-expanded', 'false');
+    setBurgerOpen(false);
+    document.body.style.overflow = '';
+  }
+
+  burgerBtn?.addEventListener('click', () => {
+    const isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMobile() : openMobile();
+  });
+
+  document.querySelectorAll('[data-mobile-link]').forEach((link) => {
+    link.addEventListener('click', closeMobile);
+  });
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && burgerBtn?.getAttribute('aria-expanded') === 'true') {
+      closeMobile();
+    }
+  });
+
+  const mq = window.matchMedia('(min-width: 768px)');
+  mq.addEventListener('change', (e) => {
+    if (e.matches) closeMobile();
+  });
+
+  // ─── Top bar scroll state ────────────────────────────────────────────────────
+  const floatNav = document.getElementById('floating-nav');
+  const navBar = document.getElementById('nav-bar');
+
+  function updateNavScroll() {
+    if (!floatNav || !navBar) return;
+    const scrolled = window.scrollY > 8;
+    if (scrolled) {
+      navBar.classList.remove('h-16');
+      navBar.classList.add('h-14');
+      navBar.dataset.scrolled = 'true';
+    } else {
+      navBar.classList.add('h-16');
+      navBar.classList.remove('h-14');
+      navBar.dataset.scrolled = 'false';
+    }
+  }
+
+  updateNavScroll();
+  window.addEventListener('scroll', updateNavScroll, { passive: true });
+
+  // ─── Auto contrast via IntersectionObserver ─────────────────────────────────
+  const darkSections = document.querySelectorAll<HTMLElement>(
+    '.nav-dark, [data-nav-theme="dark"], .bg-bg-dark, [class*="bg-bg-dark"]'
+  );
+
+  if (darkSections.length && floatNav) {
+    const NAV_OFFSET = 88;
+    const observer = new IntersectionObserver(
+      () => {
+        let inDark = false;
+        document.querySelectorAll<HTMLElement>(
+          '.nav-dark, [data-nav-theme="dark"], .bg-bg-dark, [class*="bg-bg-dark"]'
+        ).forEach((sec) => {
+          const rect = sec.getBoundingClientRect();
+          if (rect.top <= NAV_OFFSET && rect.bottom >= NAV_OFFSET) {
+            inDark = true;
+          }
+        });
+        floatNav.dataset.theme = inDark ? 'dark' : 'light';
+      },
+      { rootMargin: `-${NAV_OFFSET}px 0px 0px 0px`, threshold: [0, 1] }
+    );
+    darkSections.forEach((s) => observer.observe(s));
+
+    window.addEventListener('scroll', () => {
+      let inDark = false;
+      darkSections.forEach((sec) => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= NAV_OFFSET && rect.bottom >= NAV_OFFSET) inDark = true;
+      });
+      floatNav.dataset.theme = inDark ? 'dark' : 'light';
+    }, { passive: true });
+  }
+
+  // ─── Active link highlight (current page) ────────────────────────────────────
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]');
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+  navLinks.forEach((link) => {
+    const href = link.getAttribute('href')?.replace(/\/$/, '') || '';
+    if (href === currentPath) {
+      link.classList.add('nav-link-active');
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+</script>
+
+<style>
+  /* ─── Top accent line (animated gradient) ─────────────────────────────────── */
+  .nav-accent-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #0D9488, #06B6D4 45%, #38BDF8 60%, transparent);
+    background-size: 220% 100%;
+    animation: nav-shimmer 7s linear infinite;
+    opacity: .9;
+  }
+  @keyframes nav-shimmer { to { background-position: 220% 0; } }
+
+  /* ─── Solid full-width top bar — refined glass ────────────────────────────── */
+  .nav-bar {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, white 95%, transparent), color-mix(in srgb, white 86%, transparent));
+    border-bottom: 1px solid color-mix(in srgb, black 8%, transparent);
+    backdrop-filter: blur(18px) saturate(1.7);
+  }
+  .nav-bar[data-scrolled="true"] {
+    background: linear-gradient(180deg, color-mix(in srgb, white 97%, transparent), color-mix(in srgb, white 92%, transparent));
+    box-shadow: 0 10px 30px -16px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Dark theme — bar over dark sections */
+  #floating-nav[data-theme="dark"] .nav-bar {
+    background: linear-gradient(180deg, color-mix(in srgb, #0a0a0a 80%, transparent), color-mix(in srgb, #0a0a0a 70%, transparent));
+    border-bottom-color: color-mix(in srgb, white 12%, transparent);
+  }
+  #floating-nav[data-theme="dark"] .nav-bar[data-scrolled="true"] {
+    background: linear-gradient(180deg, color-mix(in srgb, #0a0a0a 92%, transparent), color-mix(in srgb, #0a0a0a 84%, transparent));
+    box-shadow: 0 12px 34px -16px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ─── Brand: stylish R lettermark + RankAI ────────────────────────────────── */
+  .brand-mark {
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #0D9488 0%, #06B6D4 52%, #38BDF8 100%);
+    color: #fff;
+    font-weight: 800;
+    font-size: 21px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    box-shadow:
+      0 6px 18px -6px rgba(13, 148, 136, 0.65),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -2px 6px rgba(0, 0, 0, 0.12);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .brand:hover .brand-mark {
+    transform: translateY(-1px) rotate(-3deg);
+    box-shadow:
+      0 9px 22px -6px rgba(13, 148, 136, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .brand-name { line-height: 1; }
+  #floating-nav[data-theme="light"] .brand-name { color: rgba(20, 20, 20, 0.95); }
+  #floating-nav[data-theme="dark"] .brand-name { color: #fff; }
+  .brand-ai {
+    background: linear-gradient(135deg, #0D9488, #06B6D4 55%, #38BDF8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ─── Primary nav links — animated gradient underline ─────────────────────── */
+  #floating-nav[data-theme="light"] .nav-link { color: rgba(20, 20, 20, 0.7); }
+  #floating-nav[data-theme="light"] .nav-link:hover { color: rgba(20, 20, 20, 0.97); background: rgba(0, 0, 0, 0.04); }
+  #floating-nav[data-theme="dark"] .nav-link { color: rgba(255, 255, 255, 0.8); }
+  #floating-nav[data-theme="dark"] .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.07); }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 12px; right: 12px; bottom: 5px;
+    height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, #0D9488, #06B6D4, #38BDF8);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+  }
+  .nav-link:hover::after { transform: scaleX(1); }
+
+  /* Active page link */
+  #floating-nav[data-theme="light"] .nav-link-active { color: rgba(20, 20, 20, 0.97); }
+  #floating-nav[data-theme="dark"] .nav-link-active { color: #fff; }
+  .nav-link-active::after { transform: scaleX(1); }
+</style>

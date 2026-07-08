@@ -1,0 +1,38 @@
+---
+import Shell from '../components/Shell.astro';
+import AnalyzeCompetitorsContainer from '../components/compare/AnalyzeCompetitorsContainer';
+---
+
+<Shell
+  title="Competitor AI Visibility Analysis — RankAI"
+  description="Analyze competitor AI visibility with RankAI. Compare multiple websites across GEO scores and AI search signals."
+  canonical="https://geoready.dev/analyze-competitors/"
+>
+  <section data-hero-bleed class="relative overflow-hidden" style="background: linear-gradient(180deg, #eff6ff 0%, #ecfeff 55%, #f0fdfa 100%);">
+    <div
+      aria-hidden="true"
+      class="absolute inset-0"
+      style="background-image: radial-gradient(circle at 78% 10%, rgba(56,189,248,0.20), transparent 42%), radial-gradient(circle at 10% 90%, rgba(13,148,136,0.10), transparent 42%);"
+    />
+    <div class="relative max-w-3xl mx-auto px-6 py-20 md:py-24 text-center">
+      <p
+        class="mb-5 inline-flex rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em]"
+        style="color:#0369a1; background:rgba(255,255,255,0.65); border:1px solid rgba(56,189,248,0.35); backdrop-filter:blur(6px);"
+      >
+        Competitor analysis
+      </p>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight" style="color:#0f172a;">
+        Benchmark against your
+        <span style="background: linear-gradient(90deg, #0D9488, #06B6D4, #38BDF8); -webkit-background-clip:text; background-clip:text; color:transparent;"> competitors</span>
+      </h1>
+      <p class="mt-6 text-lg md:text-xl leading-relaxed" style="color:#475569;">
+        Enter several URLs and RankAI scores each one across the same 8 signal categories — so you
+        can see, at a glance, which domains AI answer engines are most ready to cite.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-10">
+    <AnalyzeCompetitorsContainer client:only="react" />
+  </div>
+</Shell>

@@ -1,0 +1,130 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  twitterImage?: string;
+  robots?: string;
+}
+
+const {
+  title,
+  description = "Audit your website's visibility to ChatGPT, Perplexity, Claude & Gemini",
+  canonical = "https://geoready.dev/",
+  ogImage = "https://geoready.dev/assets/og-image.png",
+  twitterImage = "https://geoready.dev/assets/twitter-image.png",
+  robots = "index, follow"
+} = Astro.props;
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Preload dei font critici above-the-fold (self-hosted in /public/fonts).
+       Con font-display: optional in global.css, il preload dà al font la possibilità
+       di essere pronto entro il block period → niente swap tardivo, CLS azzerato. -->
+  <link rel="preload" href="/fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/geist-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="robots" content={robots}>
+  <link rel="canonical" href={canonical}>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:image:secure_url" content={ogImage}>
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content={description}>
+  <meta property="og:site_name" content="GeoReady">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={twitterImage}>
+  <meta name="twitter:image:alt" content={description}>
+  <!-- Favicon (inline SVG — no image asset needed) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' rx='11' fill='%230D9488'/><text x='24' y='34' font-size='30' font-family='Arial,sans-serif' font-weight='bold' fill='white' text-anchor='middle'>R</text></svg>">
+  <meta name="theme-color" content="#0D9488">
+  <link rel="alternate" type="application/atom+xml" title="GEO Optimizer Releases" href="https://github.com/Auriti-Labs/geo-optimizer-skill/releases.atom">
+  <link rel="alternate" hreflang="en" href={canonical}>
+  <link rel="alternate" hreflang="x-default" href={canonical}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://geoready.dev/#organization",
+        "name": "Auriti Labs",
+        "url": "https://geoready.dev",
+        "description": "Auriti Labs builds open-source tools for AI search visibility and Generative Engine Optimization.",
+        "foundingDate": "2024",
+        "foundingLocation": {
+          "@type": "Country",
+          "name": "Italy"
+        },
+        "areaServed": "Worldwide",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "technical support",
+          "url": "https://github.com/Auriti-Labs/geo-optimizer-skill/issues"
+        },
+        "sameAs": [
+          "https://github.com/Auriti-Labs",
+          "https://github.com/Auriti-Labs/geo-optimizer-skill",
+          "https://pypi.org/project/geo-optimizer-skill/",
+          "https://auriti-labs.github.io/geo-optimizer-skill/"
+        ],
+        "founder": { "@id": "https://geoready.dev/#founder" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://geoready.dev/#founder",
+        "name": "Juan Camilo Auriti",
+        "url": "https://x.com/JuanAuriti",
+        "worksFor": { "@id": "https://geoready.dev/#organization" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://geoready.dev/#website",
+        "name": "GeoReady",
+        "url": "https://geoready.dev",
+        "description": "Audit your website's AI search visibility and citability. GeoReady scores your site across 8 categories with actionable recommendations — free, no account required.",
+        "dateModified": "2026-06-16",
+        "publisher": { "@id": "https://geoready.dev/#organization" }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://geoready.dev/#webapp",
+        "name": "GeoReady",
+        "url": "https://geoready.dev",
+        "description": "Audit your website's AI search visibility and citability. GeoReady scores your site across 8 categories with actionable recommendations — free, no account required.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "dateModified": "2026-06-16",
+        "author": {
+          "@id": "https://geoready.dev/#organization"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    ]
+  })} />
+</head>
+<body class="bg-bg-base text-text-primary">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent-teal focus:text-white focus:rounded-lg focus:text-sm focus:font-medium">Skip to main content</a>
+  <slot />
+</body>
+</html>
